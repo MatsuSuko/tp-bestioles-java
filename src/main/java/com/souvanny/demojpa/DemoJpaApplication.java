@@ -144,7 +144,7 @@ public class DemoJpaApplication implements CommandLineRunner {
     }*/
 
     // Repository Person TP5
-    @Override
+    /*@Override
     public void run(String... args) throws Exception {
         int ageMin = 25;
         int ageMax = 40;
@@ -152,6 +152,18 @@ public class DemoJpaApplication implements CommandLineRunner {
 
         System.out.println("Personnes dont l'âge est entre " + ageMin + " et " + ageMax + " :");
         personsByAgeRange.forEach(System.out::println);
+    }*/
+
+    // Repository Animal TP5
+    @Override
+    public void run(String... args) throws Exception {
+        String sexToCount = "M";
+        long countMaleAnimals = animalRepository.countBySex(sexToCount);
+        System.out.println("Nombre d'animaux de sexe '" + sexToCount + "' : " + countMaleAnimals);
+
+        String sexToCountF = "F";
+        long countFemaleAnimals = animalRepository.countBySex(sexToCountF);
+        System.out.println("Nombre d'animaux de sexe '" + sexToCountF + "' : " + countFemaleAnimals);
     }
 
 }
