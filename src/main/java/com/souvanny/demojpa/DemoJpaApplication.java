@@ -110,7 +110,7 @@ public class DemoJpaApplication implements CommandLineRunner {
         }
     }*/
 
-    // Repository Animal
+    /*// Repository Animal
     @Override
     public void run(String... args) throws Exception {
         int speciesId = 1;
@@ -127,6 +127,20 @@ public class DemoJpaApplication implements CommandLineRunner {
         List<Animal> animalsByColors = animalRepository.findByColorIn(colors);
         System.out.println("Animaux avec une couleur parmi " + colors + " :");
         animalsByColors.forEach(System.out::println);
+    }*/
+
+    @Override
+    public void run(String... args) throws Exception {
+        // Récupérer et afficher toutes les espèces triées par nom commun ascendant
+        System.out.println("Espèces triées par nom commun (ascendant) :");
+        List<Species> speciesListOrdered = speciesRepository.findAllOrderByCommonNameAsc();
+        speciesListOrdered.forEach(System.out::println);
+
+        // Rechercher des espèces avec un nom commun contenant un mot spécifique
+        System.out.println("\nEspèces avec un nom commun contenant 'lion' :");
+        List<Species> speciesWithLion = speciesRepository.findByCommonNameLike("lion");
+        speciesWithLion.forEach(System.out::println);
     }
+
 
 }
