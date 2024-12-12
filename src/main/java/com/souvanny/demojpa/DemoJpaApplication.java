@@ -67,6 +67,7 @@ public class DemoJpaApplication implements CommandLineRunner {
         System.out.println("Animal supprimé !");
     }*/
 
+
     // Repository Species TP4
     /*@Override
     public void run(String... args) throws Exception {
@@ -130,6 +131,7 @@ public class DemoJpaApplication implements CommandLineRunner {
         animalsByColors.forEach(System.out::println);
     }*/
 
+
     /*// Repository Species TP5
     @Override
     public void run(String... args) throws Exception {
@@ -167,8 +169,9 @@ public class DemoJpaApplication implements CommandLineRunner {
         System.out.println("Nombre d'animaux de sexe '" + sexToCountF + "' : " + countFemaleAnimals);
     }*/
 
-    // Repository Person TP6
-    @Override
+
+    // Repository Person "ajout méthode pour supprimer person qui n'ont pas d'animaux" TP6
+    /*@Override
     @Transactional
     public void run(String... args) throws Exception {
         System.out.println("Nombre de personnes avant la suppression : " + personRepository.count());
@@ -188,6 +191,23 @@ public class DemoJpaApplication implements CommandLineRunner {
         personRepository.findAll().forEach(person -> {
             System.out.println(person.getFirstName() + " " + person.getLastName() +
                     " - Nombre d'animaux : " + person.getAnimals().size());
+        });
+    }*/
+
+    // Repository Person "ajout méthode pour créer person random" TP6
+    @Override
+    @Transactional
+    public void run(String... args) throws Exception {
+        System.out.println("Nombre de personnes avant la génération : " + personRepository.count());
+
+        personRepository.generateRandomPeople(50);
+
+        System.out.println("Nombre de personnes après la génération : " + personRepository.count());
+
+        System.out.println("\nListe des personnes générées :");
+        personRepository.findAll().forEach(person -> {
+            System.out.println(person.getFirstName() + " " + person.getLastName() +
+                    " - Age : " + person.getAge());
         });
     }
 
