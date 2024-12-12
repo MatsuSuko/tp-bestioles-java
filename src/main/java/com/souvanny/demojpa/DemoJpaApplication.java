@@ -200,7 +200,7 @@ public class DemoJpaApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Nombre de personnes avant la génération : " + personRepository.count());
 
-        personRepository.generateRandomPeople(50);
+        personRepository.generateRandomPeople(3);
 
         System.out.println("Nombre de personnes après la génération : " + personRepository.count());
 
