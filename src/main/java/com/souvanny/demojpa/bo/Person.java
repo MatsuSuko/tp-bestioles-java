@@ -2,6 +2,10 @@ package com.souvanny.demojpa.bo;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "person")
 public class Person {
@@ -17,6 +21,20 @@ public class Person {
 
     @Column(nullable = false)
     private int age;
+
+
+    @OneToMany
+    @JoinColumn(name = "person_id")
+    private List<Animal> animals = new ArrayList<>();
+
+    public List<Animal> getAnimals() {
+        return animals;
+    }
+
+    public void setAnimals(List<Animal> animals) {
+        this.animals = animals;
+    }
+
 
     public int getId() {
         return id;

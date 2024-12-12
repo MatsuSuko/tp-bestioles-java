@@ -6,6 +6,7 @@ import com.souvanny.demojpa.bo.Species;
 import com.souvanny.demojpa.dal.AnimalRepository;
 import com.souvanny.demojpa.dal.PersonRepository;
 import com.souvanny.demojpa.dal.SpeciesRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -155,7 +156,7 @@ public class DemoJpaApplication implements CommandLineRunner {
     }*/
 
     // Repository Animal TP5
-    @Override
+    /*@Override
     public void run(String... args) throws Exception {
         String sexToCount = "M";
         long countMaleAnimals = animalRepository.countBySex(sexToCount);
@@ -164,6 +165,30 @@ public class DemoJpaApplication implements CommandLineRunner {
         String sexToCountF = "F";
         long countFemaleAnimals = animalRepository.countBySex(sexToCountF);
         System.out.println("Nombre d'animaux de sexe '" + sexToCountF + "' : " + countFemaleAnimals);
+    }*/
+
+    // Repository Person TP6
+    @Override
+    @Transactional
+    public void run(String... args) throws Exception {
+        System.out.println("Nombre de personnes avant la suppression : " + personRepository.count());
+
+        System.out.println("\nListe des personnes et leurs animaux avant la suppression :");
+        personRepository.findAll().forEach(person -> {
+            System.out.println(person.getFirstName() + " " + person.getLastName() +
+                    " - Nombre d'animaux : " + person.getAnimals().size());
+        });
+
+        personRepository.deletePersonWithoutAnimals();
+        System.out.println("\nLes personnes sans animaux ont été supprimées.");
+
+        System.out.println("Nombre de personnes après la suppression : " + personRepository.count());
+
+        System.out.println("\nListe des personnes restantes :");
+        personRepository.findAll().forEach(person -> {
+            System.out.println(person.getFirstName() + " " + person.getLastName() +
+                    " - Nombre d'animaux : " + person.getAnimals().size());
+        });
     }
 
 }

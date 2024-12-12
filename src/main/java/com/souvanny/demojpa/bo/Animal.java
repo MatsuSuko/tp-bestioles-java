@@ -17,9 +17,11 @@ public class Animal {
     @Column(nullable = false)
     private String sex;
 
+
     @ManyToOne
     @JoinColumn(name = "species_id", nullable = false)
     private Species species;
+
 
     public int getId() {
         return id;
