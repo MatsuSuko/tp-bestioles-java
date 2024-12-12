@@ -32,7 +32,7 @@ public class DemoJpaApplication implements CommandLineRunner {
         SpringApplication.run(DemoJpaApplication.class, args);
     }
 
-    // Repository de base
+    // Repository de base TP3
     /*@Override
     public void run(String... args) throws Exception {
         // Lister toutes les espèces
@@ -66,7 +66,7 @@ public class DemoJpaApplication implements CommandLineRunner {
         System.out.println("Animal supprimé !");
     }*/
 
-    // Repository Species
+    // Repository Species TP4
     /*@Override
     public void run(String... args) throws Exception {
         String commonNameToSearch = "Chat";
@@ -87,7 +87,7 @@ public class DemoJpaApplication implements CommandLineRunner {
         }
     }*/
 
-    // Repository Person
+    // Repository Person TP4
     /*@Override
     public void run(String... args) throws Exception {
         String lastNameToSearch = "Vintroi";
@@ -110,7 +110,7 @@ public class DemoJpaApplication implements CommandLineRunner {
         }
     }*/
 
-    /*// Repository Animal
+    /*// Repository Animal TP4
     @Override
     public void run(String... args) throws Exception {
         int speciesId = 1;
@@ -129,6 +129,7 @@ public class DemoJpaApplication implements CommandLineRunner {
         animalsByColors.forEach(System.out::println);
     }*/
 
+    /*// Repository Species TP5
     @Override
     public void run(String... args) throws Exception {
         // Récupérer et afficher toutes les espèces triées par nom commun ascendant
@@ -140,7 +141,17 @@ public class DemoJpaApplication implements CommandLineRunner {
         System.out.println("\nEspèces avec un nom commun contenant 'lion' :");
         List<Species> speciesWithLion = speciesRepository.findByCommonNameLike("lion");
         speciesWithLion.forEach(System.out::println);
-    }
+    }*/
 
+    // Repository Person TP5
+    @Override
+    public void run(String... args) throws Exception {
+        int ageMin = 25;
+        int ageMax = 40;
+        List<Person> personsByAgeRange = personRepository.findByAgeBetween(ageMin, ageMax);
+
+        System.out.println("Personnes dont l'âge est entre " + ageMin + " et " + ageMax + " :");
+        personsByAgeRange.forEach(System.out::println);
+    }
 
 }
