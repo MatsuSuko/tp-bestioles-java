@@ -3,6 +3,9 @@ package com.souvanny.demojpa.service;
 import com.souvanny.demojpa.bo.Species;
 import com.souvanny.demojpa.dal.SpeciesRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +33,12 @@ public class SpeciesService {
             return speciesRepository.save(existingSpecies);
         }
         throw new RuntimeException("Species not found");
+    }
+
+    // Pagination
+    public Page<Species> findPage(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return speciesRepository.findAll(pageable);
     }
 
     // Méthodes passe-plats

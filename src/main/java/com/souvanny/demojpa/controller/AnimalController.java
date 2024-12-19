@@ -2,6 +2,7 @@ package com.souvanny.demojpa.controller;
 
 import com.souvanny.demojpa.bo.Animal;
 import com.souvanny.demojpa.service.AnimalService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +54,15 @@ public class AnimalController {
     @GetMapping("/count")
     public ResponseEntity<Long> countAnimalsBySex(@RequestParam String sex) {
         return ResponseEntity.ok(animalService.countAnimalsBySex(sex));
+    }
+
+    // Pagination
+    @GetMapping("/page")
+    public ResponseEntity<Page<Animal>> findPage(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "20") int pageSize
+    ) {
+        return ResponseEntity.ok(animalService.findPage(pageNumber, pageSize));
     }
 }
 

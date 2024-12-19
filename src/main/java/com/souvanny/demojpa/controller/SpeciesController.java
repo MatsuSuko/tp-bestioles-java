@@ -2,6 +2,7 @@ package com.souvanny.demojpa.controller;
 
 import com.souvanny.demojpa.bo.Species;
 import com.souvanny.demojpa.service.SpeciesService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +54,15 @@ public class SpeciesController {
     @GetMapping("/search")
     public ResponseEntity<List<Species>> findByCommonNameLike(@RequestParam String commonName) {
         return ResponseEntity.ok(speciesService.findByCommonNameLike(commonName));
+    }
+
+    // Pagination
+    @GetMapping("/page")
+    public ResponseEntity<Page<Species>> findPage(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "20") int pageSize
+    ) {
+        return ResponseEntity.ok(speciesService.findPage(pageNumber, pageSize));
     }
 }
 
