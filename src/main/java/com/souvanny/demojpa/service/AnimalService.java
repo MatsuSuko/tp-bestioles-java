@@ -2,6 +2,9 @@ package com.souvanny.demojpa.service;
 
 import com.souvanny.demojpa.bo.Animal;
 import com.souvanny.demojpa.dal.AnimalRepository;
+import com.souvanny.demojpa.exception.EntityToCreateHasAnIdException;
+import com.souvanny.demojpa.exception.EntityToUpdateHasNoIdException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -58,5 +61,31 @@ public class AnimalService {
 
     public long countAnimalsBySex(String sex) {
         return animalRepository.countBySex(sex);
+    }
+
+    // Exeption
+    public Animal create(Animal animal) {
+        if (animal.getId() != 0) {
+            throw new EntityToCreateHasAnIdException("L'entité à créer ne doit pas avoir d'ID.");
+        }
+        return animalRepository.save(animal);
+    }
+
+    public Animal update(Animal animal) {
+        if (animal.getId() == 0) {
+            throw new EntityToUpdateHasNoIdException("L'entité à mettre à jour doit avoir un ID.");
+        }
+        Optional<Animal> existingAnimal = animalRepository.findById(animal.getId());
+        if (existingAnimal.isEmpty()) {
+            throw new EntityNotFoundException("Animal avec l'ID " + animal.getId() + " non trouvé.");
+        }
+        return animalRepository.save(animal);
+    }
+
+    public void delete(int id) {
+        if (!animalRepository.existsById(id)) {
+            throw new EntityNotFoundException("Animal avec l'ID " + id + " non trouvé.");
+        }
+        animalRepository.deleteById(id);
     }
 }
