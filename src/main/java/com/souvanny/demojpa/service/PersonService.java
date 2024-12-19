@@ -1,48 +1,35 @@
 package com.souvanny.demojpa.service;
 
-import com.souvanny.demojpa.bo.Person;
 import com.souvanny.demojpa.dal.PersonRepository;
+import com.souvanny.demojpa.dto.PersonDto;
+import com.souvanny.demojpa.mapper.PersonMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
     private final PersonRepository personRepository;
+    private final PersonMapper personMapper;
 
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository, PersonMapper personMapper) {
         this.personRepository = personRepository;
+        this.personMapper = personMapper;
     }
 
-    // Méthode Create
-    public Person createPerson(Person person) {
-        return personRepository.save(person);
+    // Modifier la méthode findAll pour retourner des DTOs
+    public List<PersonDto> findAllPersons() {
+        return personRepository.findAll().stream()
+                .map(personMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    // Méthode Update
-    public Person updatePerson(int id, Person updatedPerson) {
-        Optional<Person> optionalPerson = personRepository.findById(id);
-        if (optionalPerson.isPresent()) {
-            Person existingPerson = optionalPerson.get();
-            existingPerson.setFirstName(updatedPerson.getFirstName());
-            existingPerson.setLastName(updatedPerson.getLastName());
-            existingPerson.setAge(updatedPerson.getAge());
-            return personRepository.save(existingPerson);
-        }
-        throw new RuntimeException("Person not found");
-    }
-
-    // Méthodes passe-plats
-    public void deletePerson(int id) {
-        personRepository.deleteById(id);
-    }
-
-    public List<Person> findAllPersons() {
-        return personRepository.findAll();
-    }
-
-    public Optional<Person> findPersonById(int id) {
-        return personRepository.findById(id);
+    // Ajouter une méthode pour la pagination avec DTOs
+    public Page<PersonDto> findAllPersonsPaged(Pageable pageable) {
+        return personRepository.findAll(pageable)
+                .map(personMapper::toDto);
     }
 }

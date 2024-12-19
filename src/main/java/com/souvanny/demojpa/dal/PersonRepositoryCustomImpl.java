@@ -19,7 +19,12 @@ public class PersonRepositoryCustomImpl implements PersonRepositoryCustom {
                 .executeUpdate();
     }
 
-    private final String[] FIRST_NAMES = {
+    @Override
+    public void generateRandomPeople(int count) {
+
+    }
+
+    /*private final String[] FIRST_NAMES = {
             "Jean", "Marie", "Pierre", "Sophie", "Lucas", "Emma", "Thomas", "Louise",
             "Nicolas", "Julie", "Antoine", "Sarah", "Paul", "Claire", "David", "Laura"
     };
@@ -27,9 +32,9 @@ public class PersonRepositoryCustomImpl implements PersonRepositoryCustom {
     private final String[] LAST_NAMES = {
             "Martin", "Bernard", "Dubois", "Thomas", "Robert", "Richard", "Petit",
             "Durand", "Leroy", "Moreau", "Simon", "Laurent", "Lefebvre", "Michel"
-    };
+    };*/
 
-    @Override
+    /*@Override
     public void generateRandomPeople(int count) {
         Random random = new Random();
 
@@ -52,6 +57,6 @@ public class PersonRepositoryCustomImpl implements PersonRepositoryCustom {
                 entityManager.clear();
             }
         }
-    }
+    }*/
 
 }

@@ -1,10 +1,8 @@
 package com.souvanny.demojpa.bo;
 
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "person")
@@ -22,20 +20,15 @@ public class Person {
     @Column(nullable = false)
     private int age;
 
-
-    @OneToMany
-    @JoinColumn(name = "person_id")
+    @ManyToMany
+    @JoinTable(
+            name = "person_animal",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "animal_id")
+    )
     private List<Animal> animals = new ArrayList<>();
 
-    public List<Animal> getAnimals() {
-        return animals;
-    }
-
-    public void setAnimals(List<Animal> animals) {
-        this.animals = animals;
-    }
-
-
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -68,8 +61,21 @@ public class Person {
         this.age = age;
     }
 
+    public List<Animal> getAnimals() {
+        return animals;
+    }
+
+    public void setAnimals(List<Animal> animals) {
+        this.animals = animals;
+    }
+
     @Override
     public String toString() {
-        return "Person{id=" + id + ", firstName='" + firstName + "', lastName='" + lastName + "', age=" + age + "}";
+        return "Person{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

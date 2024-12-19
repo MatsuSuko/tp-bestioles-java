@@ -33,6 +33,11 @@ public class DemoJpaApplication implements CommandLineRunner {
         SpringApplication.run(DemoJpaApplication.class, args);
     }
 
+    @Override
+    public void run(String... args) throws Exception {
+
+    }
+
     // Repository de base TP3
     /*@Override
     public void run(String... args) throws Exception {
@@ -195,7 +200,7 @@ public class DemoJpaApplication implements CommandLineRunner {
     }*/
 
     // Repository Person "ajout méthode pour créer person random" TP6
-    @Override
+    /*@Override
     @Transactional
     public void run(String... args) throws Exception {
         System.out.println("Nombre de personnes avant la génération : " + personRepository.count());
@@ -209,6 +214,6 @@ public class DemoJpaApplication implements CommandLineRunner {
             System.out.println(person.getFirstName() + " " + person.getLastName() +
                     " - Age : " + person.getAge());
         });
-    }
+    }*/
 
 }
